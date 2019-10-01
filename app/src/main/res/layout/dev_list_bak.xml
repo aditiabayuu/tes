@@ -1,0 +1,91 @@
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:focusable="true"
+        android:id="@+id/maincv"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white"
+        android:focusableInTouchMode="true"
+        android:layout_height="120dp">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+
+    >
+
+        <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="2dp"
+                android:layout_marginLeft="10dp"
+
+                android:id="@+id/img_v"
+                android:layout_below="@+id/txt_nama_dev"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_nama_dev"
+                android:text="Nama Barang"
+                android:textColor="#311b92"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+
+               />
+
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_temperature"
+                android:text="Set Stok"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:textColor="#311b92"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/txt_nama_dev"
+                android:layout_toEndOf="@+id/img_v"
+        />
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_humid"
+                android:textColor="#311b92"
+                android:layout_marginStart="10dp"
+                android:textSize="16sp"
+                android:hint="Jumlah"
+                android:layout_toEndOf="@+id/img_v"
+                android:enabled="true"
+                android:layout_below="@id/txt_temperature"
+        />
+
+        <ImageView
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:background="@drawable/battery"
+                android:layout_marginTop="25dp"
+                android:id="@+id/btr"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+        />
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/txt_bat"
+                  android:layout_below="@id/btr"
+                  android:layout_marginRight="28dp"
+                  android:layout_alignParentRight="true"
+                  android:textColor="#311b92"
+                  android:layout_marginTop="3dp"
+                  android:text="77%"
+
+        />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <item
+                android:id="@+id/nav_first_fragment"
+                android:icon="@drawable/widget"
+                android:title="Add Widget" />
+        <item
+                android:id="@+id/nav_second_fragment"
+                android:icon="@drawable/alert"
+                android:title="Add Alert" />
+
+   </menu>

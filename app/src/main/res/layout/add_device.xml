@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="?android:windowBackground"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_name"
+            android:layout_marginTop="10dp"
+            android:text="Add Device"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_devices"
+            android:background="#311b92"
+            android:textColor="@color/white"
+            android:text="Select Device Type"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/txt_name"
+            android:textAlignment="center"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lyt_bl"
+            android:layout_below="@id/my_devices"
+
+            android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+
+                app:cardBackgroundColor="#4CAF50"
+        />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+                android:background="?android:windowBackground"
+              android:layout_height="match_parent">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_name"
+            android:layout_marginTop="10dp"
+            android:text="User's Home"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+    />
+
+
+
+    <android.widget.ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add"
+            android:layout_marginTop="15dp"
+            android:id="@+id/add_dev"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+    />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Device Yet"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@id/add_device"
+    />
+
+    <android.widget.Button
+            android:layout_width="200dp"
+            android:background="@drawable/round"
+            android:textColor="#311b92"
+            android:text="Add Device"
+            android:id="@+id/add_device"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+        />
+</RelativeLayout>

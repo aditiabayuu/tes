@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="?android:windowBackground"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView android:layout_width="match_parent" android:layout_height="fill_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_name"
+
+                    android:text="Devices Data"
+                    android:textSize="25sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:background="#311b92"
+            />
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_temp"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                              android:background="@drawable/temperature"
+                              android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_temperature"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_hum"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                               android:background="@drawable/humidity"
+                               android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_humidity"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:id="@+id/cv_light"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                               android:background="@drawable/light"
+                               android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_lux"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_vibration"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                               android:background="@drawable/vibration"
+                               android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_vibration"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_magnet"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                               android:background="@drawable/magnet"
+                               android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_magnet"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_door"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                               android:background="@drawable/door"
+                               android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_door"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_bat"
+                                                android:visibility="gone"
+            >
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                >
+                    <ImageView android:layout_width="80dp"
+                               android:layout_height="80dp"
+                               android:background="@drawable/battery"
+                               android:layout_margin="10dp"
+                               android:layout_gravity="center"
+                    />
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_battery"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                    />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView android:layout_width="match_parent"
+                                                android:layout_height="200dp"
+                                                android:layout_marginTop="5dp"
+                                                android:padding="5dp"
+                                                android:id="@+id/cv_maps"
+                                                android:visibility="visible"
+            >
+               <FrameLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                   <fragment
+                           android:name="com.google.android.gms.maps.SupportMapFragment"
+                           android:id="@+id/frg"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"/>
+               </FrameLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:id="@+id/logo_login"
+            android:background="@drawable/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_log"
+            android:text="LOGIN"
+
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:layout_below="@id/logo_login"
+
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/lyt_user"
+            android:layout_below="@+id/txt_log"
+            android:orientation="horizontal"
+    >
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/name"
+                android:layout_marginLeft="40dp"
+        />
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                app:hintTextAppearance="@style/mytext"
+                android:clipChildren="false"
+                android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/txt_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    app:hintEnabled="false"
+                    app:backgroundTint="@color/testAbNormal_red"
+                    android:layout_marginRight="50dp"
+                    android:textSize="18sp"
+                    android:padding="8dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColorHint="@color/black"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+            />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/lyt_user2"
+            android:layout_below="@+id/lyt_user"
+            android:orientation="horizontal"
+    >
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/key"
+                android:layout_marginLeft="40dp"
+        />
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="5dp"
+                app:hintTextAppearance="@style/mytext"
+                android:clipChildren="false"
+                app:passwordToggleEnabled="true"
+                android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/txt_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:layout_marginRight="50dp"
+                    android:textSize="18sp"
+                    app:backgroundTint="@color/testAbNormal_red"
+                    android:padding="8dip"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true"
+                    android:layout_marginLeft="5dp"
+                    android:textColorHint="@color/black"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:paddingLeft="10dp"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+            />
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forget"
+            android:id="@+id/txt_forget"
+            android:layout_below="@id/lyt_user2"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+    />-->
+
+    <android.widget.Button android:layout_width="300dp"
+                           android:layout_height="wrap_content"
+                           android:id="@+id/btn_login"
+                           android:text="@string/login"
+                           android:background="@drawable/round"
+                           android:layout_below="@+id/lyt_user2"
+                           android:layout_centerHorizontal="true"
+                           android:layout_marginTop="10dp"
+
+                           android:textColor="#311b92"
+    />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_daftar"
+            android:text="@string/daftar"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_login"
+            android:layout_marginTop="10dp"
+    />
+
+
+
+
+</RelativeLayout>

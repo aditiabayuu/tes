@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="?android:windowBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_name"
+            android:layout_marginTop="10dp"
+            android:text="User's Home"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+    />
+
+
+
+    <android.widget.ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/add"
+            android:layout_marginTop="15dp"
+            android:id="@+id/add_dev"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+    />
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_name"
+                    android:id="@+id/lyt1"
+    >
+        <ImageView android:layout_width="80dp"
+                   android:layout_height="80dp"
+                   android:background="@drawable/wifi"
+                   android:layout_marginLeft="10dp"
+                   android:layout_marginTop="30dp"
+                   android:id="@+id/img_wifi"
+        />
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/id_online"
+                  android:textColor="@color/black"
+                  android:textSize="20sp"
+                  android:text="ONLINE"
+                  android:layout_marginTop="30dp"
+                  android:layout_marginStart="10dp"
+                  android:layout_toEndOf="@+id/img_wifi"
+
+        />
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/id_connection"
+                  android:textColor="@color/black"
+                  android:textSize="14sp"
+                  android:text="Connected to SIGFOX INDONESIA"
+                  android:layout_marginStart="10dp"
+                  android:layout_below="@id/id_online"
+                  android:layout_toEndOf="@+id/img_wifi"
+
+                  android:layout_marginTop="-6dp"/>
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/last_login"
+                  android:textColor="@color/black"
+                  android:textSize="14sp"
+                  android:text="Last Login  2019-09-10 10:12:11"
+                  android:layout_marginStart="10dp"
+                  android:layout_below="@id/id_connection"
+                  android:layout_toEndOf="@+id/img_wifi"
+
+        />
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/my_devices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lyt1"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="0dp"
+            android:background="#311b92"
+            android:padding="10dp"
+            android:text="My Devices"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lyt_bl"
+            android:layout_below="@id/my_devices"
+
+            android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                app:cardBackgroundColor="#4CAF50"
+        />
+
+
+    </LinearLayout>
+    
+
+
+
+</RelativeLayout>

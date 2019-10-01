@@ -1,0 +1,40 @@
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:focusable="true"
+        android:id="@+id/maincv"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white"
+        android:focusableInTouchMode="true"
+        android:layout_height="100dp">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+
+    >
+
+        <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="2dp"
+                android:layout_margin="10dp"
+                android:id="@+id/img_v"
+
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_nama_dev"
+                android:text="Nama Barang"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/img_v" android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"/>
+
+
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
