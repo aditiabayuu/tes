@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "992131908186",
+    "firebase_url": "https://pandawa-a4406.firebaseio.com",
+    "project_id": "pandawa-a4406",
+    "storage_bucket": "pandawa-a4406.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992131908186:android:7928213970c32ee29ace63",
+        "android_client_info": {
+          "package_name": "id.co.inti.pandawa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992131908186-q2id7mt31nrva7avrrjoq1mlr5qrlvak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.co.inti.pandawa",
+            "certificate_hash": "9e99b8048fa9cd5f14bbf816c77cb8ac87afa596"
+          }
+        },
+        {
+          "client_id": "992131908186-kf6fvum8l0dqok4bic9vi2nucp9q0rgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByRHIV0ludrIxMrUwxxmfvNqs4j4b8oMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992131908186-kf6fvum8l0dqok4bic9vi2nucp9q0rgt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

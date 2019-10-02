@@ -19,6 +19,8 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import android.R.id.edit
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import org.json.JSONArray
 
 
@@ -30,6 +32,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var context: Context
     private lateinit var dlg: ProgressDialog
     private lateinit var dialog: Dialog
+    private lateinit var token: String
+
     private val tag = "DEBUG"
     private val debug = true
     private lateinit  var dbHelper: DBHelper
@@ -45,6 +49,15 @@ class LoginActivity : AppCompatActivity() {
             StrictMode.setThreadPolicy(policy)
             //your codes here
         }
+
+        /*
+        Fungsi ini digunakan untuk broadcast notification ke beberapa segmen pengguna,
+        FirebaseMessaging.getInstance().subscribeToTopic("pengumuman")
+        */
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnSuccessListener { instanceIdResult ->
+                token = instanceIdResult.token
+            }
 
         dbHelper = DBHelper(this)
         dbHelper.openDB()
@@ -85,8 +98,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-
     fun ceklogin() {
         try {
             dlg = ProgressDialog(context)
@@ -98,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
             //val bodydata = "username="+usrname.text.toString()+"&password="+pwd.text.toString();
             bodydata.put("username", usrname.text.toString())
             bodydata.put("password", pwd.text.toString())
-            bodydata.put("token_firebase", "ldsadsadsaad")
+            bodydata.put("token_firebase", token)
             val JSON = MediaType.parse("application/json; charset=utf-8")
             val client = OkHttpClient.Builder()
                 .connectTimeout(180, TimeUnit.SECONDS)
