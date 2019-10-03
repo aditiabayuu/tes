@@ -5,38 +5,31 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
 import android.text.Html
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.ekn.gruzer.gaugelibrary.ArcGauge
 import com.ekn.gruzer.gaugelibrary.Range
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import id.co.inti.pandawa.dbhelper.DBHelper
-import lecho.lib.hellocharts.formatter.SimpleAxisValueFormatter
 import lecho.lib.hellocharts.gesture.ZoomType
 import lecho.lib.hellocharts.model.*
 import lecho.lib.hellocharts.util.ChartUtils
 import lecho.lib.hellocharts.view.ColumnChartView
 import lecho.lib.hellocharts.view.LineChartView
-import java.lang.Exception
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 
-class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
+class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCallback
 {
     private lateinit var dialog: Dialog
     private var rootView: View? = null
@@ -113,22 +106,10 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
                 // Not implemented here
                 return true
             }
-            R.id.nav_second_fragment -> {
-                val frg = fragment_alert()
-                val ft = fragmentManager!!.beginTransaction()
-                ft.replace(R.id.main_container, frg, "get")
-                val bundle = Bundle()
-                bundle.putString("dev", data)
-                frg.setArguments(bundle);
-                ft.addToBackStack(null)
-                dbHelper.closeDB()
-                ft.commit()
-                // Not implemented here
-                return true
+            R.id.nav_second_fragment->
 
-            // Do Fragment menu item stuff here
-            return true
-            }
+                // Do Fragment menu item stuff here
+                return true
 
             else -> {
             }
@@ -192,6 +173,7 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
                                         val arrays = result.getJSONArray("data")
                                         lats= result.getString("latitude")
                                         long= result.getString("longitude")
+                                        val dates= result.getString("date")
                                         Log.d("tag", "cot :" + arrays.length())
                                         val a = arrays.length()
                                         val keys_temp = arrayOfNulls<String>(a)
@@ -224,7 +206,8 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
                                                 Log.d(tag,"TYPE: "+typess[i]);
                                                 if (`val`.getString("key").equals(key[i]))
                                                 {
-                                                    val cv =CardView(context)
+                                                    val cv =
+                                                        androidx.cardview.widget.CardView(context)
                                                     val lyts= LinearLayout(context)
                                                     val remove = Button (context)
                                                     lyts.setLayoutParams(LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -237,6 +220,15 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                                     )
+                                                    val param_tabel = TableLayout.LayoutParams(
+                                                        TableLayout.LayoutParams.MATCH_PARENT,
+                                                        TableLayout.LayoutParams.WRAP_CONTENT
+                                                    )
+
+                                                    val param_text = TableRow.LayoutParams(
+                                                        TableRow.LayoutParams.WRAP_CONTENT,
+                                                        TableRow.LayoutParams.WRAP_CONTENT )
+
                                                     val paramss= LinearLayout.LayoutParams(
                                                         LinearLayout.LayoutParams.MATCH_PARENT,
                                                         200
@@ -346,6 +338,96 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
 
                                                     }
 
+                                                    else if (typess[i].equals("Table"))
+                                                    {
+                                                        val scr = HorizontalScrollView(context)
+                                                        scr.setLayoutParams(params)
+                                                        val table = TableLayout(context)
+                                                        table.setDividerDrawable(resources.getDrawable(R.drawable.border))
+                                                        table.setShowDividers(TableLayout.SHOW_DIVIDER_MIDDLE)
+                                                        table.setLayoutParams(param_tabel);
+                                                        Log.d(tag,"set")
+
+                                                        var header = TableRow(context)
+                                                        header.setLayoutParams(TableRow.LayoutParams(
+                                                            TableRow.LayoutParams.MATCH_PARENT,
+                                                            TableRow.LayoutParams.WRAP_CONTENT));
+                                                        header.setBackgroundColor(Color.parseColor("#7FAF7F"))
+                                                        header.setDividerDrawable(resources.getDrawable(R.drawable.border))
+                                                        header.setShowDividers(TableRow.SHOW_DIVIDER_MIDDLE)
+                                                        var textValue = TextView(context)
+                                                        textValue.setLayoutParams(param_text)
+                                                        textValue.setText("No")
+                                                        textValue.setGravity(1)
+                                                        textValue.setTextAppearance(context, R.style.HeaderText);
+                                                        val textValue2 = TextView(context)
+
+
+                                                        textValue2.setLayoutParams(param_text)
+                                                        //textValue2.setGravity(Gravity.CENTER)
+                                                        textValue2.setText("DEVICE ID")
+                                                        textValue2.setGravity(1)
+                                                        textValue2.setTextAppearance(context, R.style.HeaderText);
+                                                        val textValue3 = TextView(context)
+
+                                                        textValue3.setLayoutParams(param_text)
+                                                        //textValue3.setGravity(Gravity.CENTER)
+                                                        textValue3.setText("DATA")
+                                                        textValue3.setGravity(1)
+                                                        textValue3.setTextAppearance(context, R.style.HeaderText);
+                                                        val textValue4 = TextView(context)
+                                                        textValue4.setGravity(1)
+
+                                                        textValue4.setLayoutParams(param_text)
+                                                        textValue4.setTextAppearance(context, R.style.HeaderText);
+                                                        //textValue4.setGravity(Gravity.CENTER)
+                                                        textValue4.setText("TIME")
+                                                        header.addView(textValue)
+                                                        header.addView(textValue2)
+                                                        header.addView(textValue3)
+                                                        header.addView(textValue4)
+                                                        table.addView(header)
+                                                        val rowNumber =2
+                                                        val row = TableRow(context);
+                                                        header.setLayoutParams(TableRow.LayoutParams(
+                                                        TableRow.LayoutParams.MATCH_PARENT,
+                                                        TableRow.LayoutParams.WRAP_CONTENT));
+                                                        val no =  TextView(context);
+                                                        no.setLayoutParams(param_text)
+                                                        no.setTextAppearance(context, R.style.mytext);
+                                                        no.setText(i.toString());
+                                                        //no.setGravity(1)
+                                                        row.addView(no);
+                                                        val id =  TextView(context);
+                                                        id.setText(iddevice);
+                                                        id.setLayoutParams(param_text)
+                                                        id.setTextAppearance(context, R.style.mytext);
+                                                        //id.setGravity(1)
+                                                        row.addView(id);
+                                                        val sb = StringBuilder()
+                                                        for (b in 0 until j)
+                                                        {
+                                                            sb.append( keys_temp [b] +" : " +value_temp [b]+ "\n")
+                                                        }
+
+                                                        val dt =  TextView(context);
+                                                        dt.setText(sb);
+                                                        dt.setLayoutParams(param_text)
+                                                        dt.setTextAppearance(context, R.style.mytext);
+                                                        //dt.setGravity(1)
+                                                        row.addView(dt);
+
+                                                        val dts =  TextView(context);
+                                                        dts.setText(dates);
+                                                        dts.setLayoutParams(param_text)
+                                                        dts.setTextAppearance(context, R.style.mytext);
+                                                        row.addView(dts);
+                                                        row.setShowDividers(TableRow.SHOW_DIVIDER_MIDDLE)
+                                                        table.addView(row);
+                                                        scr.addView(table)
+                                                        lyts.addView(scr)
+                                                    }
+
                                                     cv.addView(lyts)
                                                     ll.addView(cv)
                                                     break
@@ -354,7 +436,8 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
                                                 }
 
                                                  else if (typess[i].equals("Message Counter")) {
-                                                    val cv =CardView(context)
+                                                    val cv =
+                                                        androidx.cardview.widget.CardView(context)
                                                     val lyts= LinearLayout(context)
                                                     val remove = Button (context)
                                                     lyts.setLayoutParams(LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -475,7 +558,7 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
         }
         return number
     }
-    private fun getLine(iddevice: String, keys: String, title: String, cv: CardView) {
+    private fun getLine(iddevice: String, keys: String, title: String, cv: androidx.cardview.widget.CardView) {
         activity!!.runOnUiThread {
             try {
                 dlg = ProgressDialog(context)
@@ -661,7 +744,7 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
         }
     }
 
-    private fun getBar(iddevice: String, keys: String, title: String, cv: CardView) {
+    private fun getBar(iddevice: String, keys: String, title: String, cv: androidx.cardview.widget.CardView) {
         activity!!.runOnUiThread {
             try {
                /* dlg = ProgressDialog(context)
@@ -830,7 +913,7 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
         }
     }
 
-    private fun getCounter(iddevice: String, keys: String, title: String, cv: CardView) {
+    private fun getCounter(iddevice: String, keys: String, title: String, cv: androidx.cardview.widget.CardView) {
         activity!!.runOnUiThread {
             try {
                 /*dlg = ProgressDialog(context)
@@ -995,7 +1078,7 @@ class  fragmentdetildevicebak : Fragment(), OnMapReadyCallback
     }
 
 
-    private fun getLoc(iddevice: String, cv: CardView) {
+    private fun getLoc(iddevice: String, cv: androidx.cardview.widget.CardView) {
         activity!!.runOnUiThread {
             try {
                 /*dlg = ProgressDialog(context)

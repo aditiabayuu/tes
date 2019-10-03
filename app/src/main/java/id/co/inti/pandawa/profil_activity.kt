@@ -7,8 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat.checkSelfPermission
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat.checkSelfPermission
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +18,7 @@ import android.widget.Toast
 import com.mikhaellopez.circularimageview.CircularImageView
 import android.Manifest
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -25,23 +26,30 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import id.co.inti.pandawa.dbhelper.DBHelper
 import java.io.*
 import java.lang.Exception
 import java.util.*
 import android.util.Base64;
+import okhttp3.*
+import org.json.JSONObject
+import java.util.concurrent.TimeUnit
 
-class profil_activity : Fragment()
+class profil_activity : androidx.fragment.app.Fragment()
 {
-    private var dialog: Dialog? = null
+    private lateinit var dialog: Dialog
     private var rootView: View? = null
+    private lateinit var created : TextView
+    private lateinit var login : TextView
+    private lateinit var update : TextView
     private lateinit var names : TextView
     private lateinit var data : String
     private lateinit var  pwd : Button
     private lateinit var about : Button
+    private lateinit var dlg: ProgressDialog
     private lateinit var logout : Button
     internal var context: Context? = null
     private lateinit var prof : CircularImageView
@@ -62,10 +70,14 @@ class profil_activity : Fragment()
         data= Preferences.getLoggedInUser(activity!!)
         context=activity
         names.setText(data)
+        dialog= Dialog(context)
         dbHelper = DBHelper(context)
         dbHelper.openDB()
         gmbar=rootView!!.findViewById(R.id.img_profile)
         prof=rootView!!.findViewById(R.id.img_plus)
+        created= rootView!!.findViewById(R.id.txt_create);
+        login=rootView!!.findViewById(R.id.txt_login)
+        update=rootView!!.findViewById(R.id.txt_update)
         pwd=rootView!!.findViewById(R.id.btn_pwd)
         about=rootView!!.findViewById(R.id.btn_about)
         logout=rootView!!.findViewById(R.id.btn_logout)
@@ -96,25 +108,8 @@ class profil_activity : Fragment()
         }
 
 
-
+        cekStatus()
         prof.setOnClickListener {
-           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (ContextCompat.checkSelfPermission(activity!!,Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_DENIED){
-                    //permission denied
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE);
-                }
-                else{
-                    //permission already granted
-                    pickImageFromGallery();
-                }
-            }
-            else{
-                //system OS is < Marshmallow
-                pickImageFromGallery();
-            }*/
 
             val pictureDialog = AlertDialog.Builder(context)
             pictureDialog.setTitle("Select Action")
@@ -167,6 +162,107 @@ class profil_activity : Fragment()
             startActivityForResult(cameraIntent, CAMERA)
         }
 
+
+    }
+
+    fun cekStatus() {
+        try {
+            dlg = ProgressDialog(context)
+            dlg.setMessage("Sedang Mengambil Data...")
+            dlg.setCancelable(false)
+            dlg.show()
+            val url = "http://tms.inti.co.id:7002"
+            val bodydata= JSONObject()
+            var nm= Preferences.getRegisteredUser(context)
+            //val bodydata = "username="+usrname.text.toString()+"&password="+pwd.text.toString();
+            bodydata.put("command", "getStatus")
+            bodydata.put("username", nm)
+            val JSON = MediaType.parse("application/json; charset=utf-8")
+            val client = OkHttpClient.Builder()
+                .connectTimeout(180, TimeUnit.SECONDS)
+                .writeTimeout(180, TimeUnit.SECONDS)
+                .readTimeout(180, TimeUnit.SECONDS).build()
+            val body = RequestBody.create(JSON, bodydata.toString())
+            Log.d(tag,bodydata.toString())
+            val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .build()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    activity!!.runOnUiThread {
+                        // For the example, you can show an error dialog or a toast
+                        // on the main UI thread
+                        dlg.dismiss()
+                        dialog.setContentView(R.layout.alert_error)
+                        val dialogButton = dialog.findViewById(R.id.dialogButtonOK) as Button
+                        val txtContent = dialog.findViewById(R.id.alertcontent) as TextView
+                        /* dialog.setCancelable(false);
+                              dialog.setCanceledOnTouchOutside(false);*/
+                        txtContent.text = "PERIKSA KEMBALI KONEKSI ANDA"
+                        dialog.show()
+                        dialogButton.setOnClickListener { dialog.dismiss() }
+                    }
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    activity!!.runOnUiThread {
+                        try {
+                            val resp = response.body()!!.string()
+                            Log.d("tag", resp)
+                            val result = JSONObject(resp)
+
+                            if (result.getString("responseCode").equals("0")) {
+                                dlg.dismiss()
+                                created.setText(result.getString("created"))
+                                login.setText(result.getString("last_login"))
+                                update.setText(result.getString("last_update"))
+
+
+                            } else {
+                                dlg.dismiss()
+                                dialog.setContentView(R.layout.alert_error)
+                                val dialogButton = dialog.findViewById(R.id.dialogButtonOK) as Button
+                                val txtContent = dialog.findViewById(R.id.alertcontent) as TextView
+                                val erro = result.getString("responseDesc")
+                                /* dialog.setCancelable(false);
+                                        dialog.setCanceledOnTouchOutside(false);*/
+                                txtContent.text =erro
+                                dialog.show()
+                                dialogButton.setOnClickListener { dialog.dismiss() }
+                            }
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                            dlg.dismiss()
+                            dialog.setContentView(R.layout.alert_error)
+                            val dialogButton = dialog.findViewById(R.id.dialogButtonOK) as Button
+                            val txtContent = dialog.findViewById(R.id.alertcontent) as TextView
+                            /* dialog.setCancelable(false);
+                                    dialog.setCanceledOnTouchOutside(false);*/
+                            txtContent.text = "Response Tidak Dikenali"
+                            dialog.show()
+                            dialogButton.setOnClickListener { dialog.dismiss() }
+                        }
+
+
+                    }
+
+                }
+            })
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            //ex.printStackTrace()
+            dlg.dismiss()
+            dialog.setContentView(R.layout.alert_error)
+            val dialogButton = dialog.findViewById(R.id.dialogButtonOK) as Button
+            val txtContent = dialog.findViewById(R.id.alertcontent) as TextView
+            /* dialog.setCancelable(false);
+                                    dialog.setCanceledOnTouchOutside(false);*/
+            txtContent.text = "Terjadi Kesalahan"
+            dialog.show()
+            dialogButton.setOnClickListener { dialog.dismiss() }
+
+        }
 
     }
 
