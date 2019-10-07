@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -19,10 +19,10 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import android.R.id.edit
+import android.os.Build
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import org.json.JSONArray
-
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var login: Button
@@ -33,7 +33,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var dlg: ProgressDialog
     private lateinit var dialog: Dialog
     private lateinit var token: String
-
     private val tag = "DEBUG"
     private val debug = true
     private lateinit  var dbHelper: DBHelper
@@ -42,22 +41,18 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_activity)
         supportActionBar!!.hide()
         context = this
-        val SDK_INT = android.os.Build.VERSION.SDK_INT
+        val SDK_INT = Build.VERSION.SDK_INT
         if (SDK_INT > 8) {
             val policy = StrictMode.ThreadPolicy.Builder()
                 .permitAll().build()
             StrictMode.setThreadPolicy(policy)
             //your codes here
         }
-
-        /*
-        Fungsi ini digunakan untuk broadcast notification ke beberapa segmen pengguna,
-        FirebaseMessaging.getInstance().subscribeToTopic("pengumuman")
-        */
         FirebaseInstanceId.getInstance().instanceId
             .addOnSuccessListener { instanceIdResult ->
                 token = instanceIdResult.token
             }
+
 
         dbHelper = DBHelper(this)
         dbHelper.openDB()
@@ -97,6 +92,8 @@ class LoginActivity : AppCompatActivity() {
             this@LoginActivity.startActivity(mainIntent)
         }
     }
+
+
 
     fun ceklogin() {
         try {
