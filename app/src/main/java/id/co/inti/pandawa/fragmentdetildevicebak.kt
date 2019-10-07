@@ -81,6 +81,8 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
             val zoomLevel = 16.0f
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel))
 
+        setupMap(googleMap)
+
     }
 
 
@@ -269,6 +271,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                                         ft.commit()
 
                                                     }
+
                                                     if (typess[i].equals("Gauge")) {
                                                         val vv = `val`.getString("value").toDouble()
                                                         val gauge = ArcGauge(context)
@@ -311,7 +314,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                                         mapView.onCreate(Bundle())
                                                         mapView.onResume()
                                                         lyts.addView(mapView)
-                                                        mapView.getMapAsync(this@fragmentdetildevicebak);
+                                                        mapView.getMapAsync(this@fragmentdetildevicebak)
                                                     }
 
                                                     else if (typess[i].equals("Line Graph")) {
@@ -333,7 +336,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                                      }
                                                     else if (typess[i].equals("Tracking"))
                                                     {
-                                                       places=false
+                                                       //places=true
                                                        getLoc(iddevice,cv)
 
                                                     }
@@ -359,7 +362,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                                         textValue.setLayoutParams(param_text)
                                                         textValue.setText("No")
                                                         textValue.setGravity(1)
-                                                        textValue.setTextAppearance(context, R.style.HeaderText);
+                                                        textValue.setTextAppearance(context, R.style.HeaderText)
                                                         val textValue2 = TextView(context)
 
 
@@ -367,19 +370,19 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                                         //textValue2.setGravity(Gravity.CENTER)
                                                         textValue2.setText("DEVICE ID")
                                                         textValue2.setGravity(1)
-                                                        textValue2.setTextAppearance(context, R.style.HeaderText);
+                                                        textValue2.setTextAppearance(context, R.style.HeaderText)
                                                         val textValue3 = TextView(context)
 
                                                         textValue3.setLayoutParams(param_text)
                                                         //textValue3.setGravity(Gravity.CENTER)
                                                         textValue3.setText("DATA")
                                                         textValue3.setGravity(1)
-                                                        textValue3.setTextAppearance(context, R.style.HeaderText);
+                                                        textValue3.setTextAppearance(context, R.style.HeaderText)
                                                         val textValue4 = TextView(context)
                                                         textValue4.setGravity(1)
 
                                                         textValue4.setLayoutParams(param_text)
-                                                        textValue4.setTextAppearance(context, R.style.HeaderText);
+                                                        textValue4.setTextAppearance(context, R.style.HeaderText)
                                                         //textValue4.setGravity(Gravity.CENTER)
                                                         textValue4.setText("TIME")
                                                         header.addView(textValue)
@@ -537,10 +540,10 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
 
     public inline fun String.toDouble(): Double = java.lang.Double.parseDouble(this)
 
-  override fun onResume()
-  {
+  override fun onResume() {
       super.onResume()
   }
+
     private fun convertDouble(string: Array<String?>): FloatArray {
         val number = FloatArray(string.size)
 
@@ -558,6 +561,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
         }
         return number
     }
+
     private fun getLine(iddevice: String, keys: String, title: String, cv: androidx.cardview.widget.CardView) {
         activity!!.runOnUiThread {
             try {
@@ -1125,7 +1129,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                             activity!!.runOnUiThread {
                                 try {
                                     val rsp = response.body()!!.string()
-                                    Log.d("tag", rsp)
+                                    Log.d("getLoc", rsp)
                                     var result: JSONObject? = null
                                     result = JSONObject(rsp)
                                     if (result.getString("responseCode") == "0") {
@@ -1164,7 +1168,7 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
 
                                         val param_map = LinearLayout.LayoutParams(
                                             LinearLayout.LayoutParams.WRAP_CONTENT,
-                                            350
+                                            500
                                         )
                                         val params = LinearLayout.LayoutParams(
                                             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -1177,10 +1181,10 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                         googleMapOptions.mapType(GoogleMap.MAP_TYPE_NORMAL)
                                             .compassEnabled(true).rotateGesturesEnabled(true)
                                             .tiltGesturesEnabled(true);
-                                        val  mapView =  MapView(context, googleMapOptions)
-                                        mapView.setLayoutParams(param_map)
-                                        mapView.onCreate(Bundle())
-                                        mapView.onResume()
+                                        val  mapView2 =  MapView(context, googleMapOptions)
+                                        mapView2.setLayoutParams(param_map)
+                                        mapView2.onCreate(Bundle())
+                                        mapView2.onResume()
                                         param_map.setMargins(10,100,10,10)
                                         params.setMargins(10,10,10,10)
                                         cv.layoutParams = params
@@ -1188,13 +1192,15 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
                                         cv.setCardBackgroundColor(resources.getColor(R.color.gray))
                                         cv.maxCardElevation = 15f
                                         cv.cardElevation = 9f
-                                        lyts.addView(mapView)
+                                        lyts.addView(mapView2)
                                         cv.addView(lyts)
-                                        mapView.getMapAsync(OnMapReadyCallback() {
+                                        mapView2.getMapAsync(this@fragmentdetildevicebak)
+                                        /*mapView.getMapAsync(OnMapReadyCallback() {
                                                fun onMapReady( map: GoogleMap) {
                                                   setupMap(map)
                                                }
-                                         });
+                                         })*/
+
 
                                     } else {
                                         Toast.makeText(
@@ -1235,8 +1241,8 @@ class  fragmentdetildevicebak : androidx.fragment.app.Fragment(), OnMapReadyCall
             }
         }
     }
-    fun setupMap(map : GoogleMap?)
-    {
+
+    fun setupMap(map : GoogleMap?) {
         Log.d(tag,"PEEPEPE")
         val latitude = 0;   // set this
         val longitude = 0;  // set this too

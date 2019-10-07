@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
             dlg.setMessage("Sedang Mengambil Data...")
             dlg.setCancelable(false)
             dlg.show()
-            val url = "http://114.57.160.52/piranti-dev/auth/ajaxLogin"
+            val url = "http://114.57.160.52/piranti/auth/ajaxLogin"
             val bodydata= JSONObject()
             //val bodydata = "username="+usrname.text.toString()+"&password="+pwd.text.toString();
             bodydata.put("username", usrname.text.toString())

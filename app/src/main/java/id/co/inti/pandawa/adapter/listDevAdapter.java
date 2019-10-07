@@ -2,8 +2,8 @@ package id.co.inti.pandawa.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.LayoutParams;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.LayoutParams;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import id.co.inti.pandawa.R;
 import id.co.inti.pandawa.item.RecyclerViewClickListener;
-import id.co.inti.pandawa.item.add_dev_holder;
 import id.co.inti.pandawa.item.item;
 import id.co.inti.pandawa.item.list_dev_holder;
 

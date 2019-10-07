@@ -34,6 +34,7 @@ import java.io.*
 import java.lang.Exception
 import java.util.*
 import android.util.Base64;
+import androidx.core.app.ActivityCompat
 import okhttp3.*
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
@@ -51,24 +52,27 @@ class profil_activity : androidx.fragment.app.Fragment()
     private lateinit var about : Button
     private lateinit var dlg: ProgressDialog
     private lateinit var logout : Button
-    internal var context: Context? = null
+    internal lateinit var context: Context
     private lateinit var prof : CircularImageView
     private lateinit var gmbar : CircularImageView
     private lateinit var dbHelper: DBHelper
     companion object {
         //image pick code
-        private val IMAGE_PICK_CODE = 1000;
-        //Permission code
-        private val PERMISSION_CODE = 1001;
+        private val IMAGE_PICK_CODE = 1000
         private val GALLERY = 1
         private val CAMERA = 2
+        //Permission code
+        private const val MULTIPLE_PERMISSIONS = 10
     }
+
+    internal var permissions = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.profile_activity_bak, container, false)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         names= rootView!!.findViewById(R.id.user_profile_name)
         data= Preferences.getLoggedInUser(activity!!)
-        context=activity
+        context= activity as AppCompatActivity
         names.setText(data)
         dialog= Dialog(context)
         dbHelper = DBHelper(context)
@@ -113,8 +117,10 @@ class profil_activity : androidx.fragment.app.Fragment()
 
             val pictureDialog = AlertDialog.Builder(context)
             pictureDialog.setTitle("Select Action")
-            val pictureDialogItems = arrayOf("Select image from gallery", "Capture photo from camera")
-            pictureDialog.setItems(pictureDialogItems
+            val pictureDialogItems =
+                arrayOf("Select image from gallery", "Capture photo from camera")
+            pictureDialog.setItems(
+                pictureDialogItems
             ) { dialog, which ->
                 when (which) {
                     0 -> chooseImageFromGallery()
@@ -136,25 +142,7 @@ class profil_activity : androidx.fragment.app.Fragment()
 
     private fun takePhotoFromCamera() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(activity!!,Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_DENIED){
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.CAMERA);
-                //show popup to request runtime permission
-                requestPermissions(permissions, PERMISSION_CODE);
-            }
-            if (ContextCompat.checkSelfPermission(activity!!,Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_DENIED){
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                //show popup to request runtime permission
-                requestPermissions(permissions, PERMISSION_CODE);
-            }
-            else{
-                //permission already granted
-                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                startActivityForResult(cameraIntent, CAMERA)
-            }
+            checkPermissions()
         }
         else{
             //system OS is < Marshmallow
@@ -162,7 +150,10 @@ class profil_activity : androidx.fragment.app.Fragment()
             startActivityForResult(cameraIntent, CAMERA)
         }
 
-
+        if(checkPermissions()){
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(cameraIntent, CAMERA)
+        }
     }
 
     fun cekStatus() {
@@ -268,29 +259,22 @@ class profil_activity : androidx.fragment.app.Fragment()
 
     fun chooseImageFromGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(activity!!,Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_DENIED){
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                //show popup to request runtime permission
-                requestPermissions(permissions, PERMISSION_CODE);
-            }
-            else{
-                //permission already granted
-                pickImageFromGallery();
-            }
+            checkPermissions()
         }
         else{
             //system OS is < Marshmallow
             pickImageFromGallery();
         }
-        /*val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(galleryIntent, GALLERY)*/
+
+        if(checkPermissions()){
+            val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(galleryIntent, IMAGE_PICK_CODE)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode){
-            PERMISSION_CODE -> {
+            /*PERMISSION_CODE -> {
                 if (grantResults.size >0 && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED){
                     //permission from popup granted
@@ -304,6 +288,15 @@ class profil_activity : androidx.fragment.app.Fragment()
                 else{
                     //permission from popup denied
                     Toast.makeText(activity, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }*/
+            MULTIPLE_PERMISSIONS -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permissions granted.
+                    Log.e("Permissions: ", "Granted")
+                } else {
+                    // no permissions granted.
+                    Log.e("Permissions: ", "Failed")
                 }
             }
         }
@@ -400,6 +393,25 @@ class profil_activity : androidx.fragment.app.Fragment()
     }
 
 
+    private fun checkPermissions(): Boolean {
+        var result: Int
+        val listPermissionNeeded = ArrayList<String>()
+        for (p in permissions) {
+            result = checkSelfPermission(context, p)
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionNeeded.add(p)
+            }
+        }
 
+        if (!listPermissionNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                listPermissionNeeded.toTypedArray(),
+                MULTIPLE_PERMISSIONS
+            )
+            return false
+        }
+        return true
+    }
 
 }

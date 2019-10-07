@@ -5,8 +5,8 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.os.VibrationEffect
-import android.support.v4.app.Fragment
-import android.support.v7.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.cardview.widget.CardView
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.graphics.drawable.Drawable
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
