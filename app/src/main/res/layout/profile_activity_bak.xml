@@ -63,6 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Created At"
+
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -72,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@string/font_family_condensed"
                     android:text="Created At"
+                    android:id="@+id/txt_create"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/meta_label" />
         </LinearLayout>
@@ -87,6 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Last Login"
+
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -96,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@string/font_family_condensed"
                     android:text="Last Login"
+                    android:id="@+id/txt_login"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/meta_label" />
         </LinearLayout>
@@ -110,7 +114,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123"
+                    android:text="Last Update"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -120,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@string/font_family_condensed"
                     android:text="Last Update"
+                    android:id="@+id/txt_update"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/meta_label" />
         </LinearLayout>
